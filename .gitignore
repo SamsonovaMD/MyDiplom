@@ -1,0 +1,27 @@
+# В вашем файле diplom/.gitignore добавьте или убедитесь, что есть:
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv_back/  # Наше виртуальное окружение
+.venv/
+env/
+venv/
+ENV/
+
+# Secrets / Environment variables
+.env
+*.env.*
+!.env.example # Важно, чтобы пример файла был в репозитории
+
+# IDE specific (VSCode)
+.vscode/
+
+# Alembic (если генерирует что-то временное, но обычно папка alembic/ нужна)
+# .alembic_version/ # Обычно не нужно игнорировать, так как содержит версию БД
+
+# macOS
+.DS_Store
