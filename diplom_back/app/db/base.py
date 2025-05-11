@@ -1,9 +1,13 @@
-from sqlalchemy.orm import declarative_base
+# diplom_back/app/db/base.py
+# Этот файл гарантирует, что Alembic может найти Base и все модели.
 
-# Базовый класс для всех моделей SQLAlchemy
-# Позже наши модели будут наследоваться от него
-Base = declarative_base()
+# Импортируем Base из base_class.
+from .base_class import Base  
 
-# Здесь можно будет импортировать все модели, чтобы Alembic их видел
-# from app.models.user import User # Пример
-# from app.models.vacancy import Vacancy # Пример
+# Импортируем все модели из app.models.
+# Это действие заставит Python загрузить файлы моделей,
+# и классы моделей (наследуемые от Base) зарегистрируются в Base.metadata.
+# Это критично для автогенерации миграций Alembic.
+import app.models # noqa 
+# `noqa` используется, чтобы линтеры не жаловались на неиспользуемый импорт,
+# хотя он здесь имеет побочный эффект загрузки модулей.
