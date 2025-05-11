@@ -1,11 +1,12 @@
+# diplom_back/app/api/v1/endpoints/resumes.py
 from fastapi import APIRouter, File, UploadFile, HTTPException
-from app.services.resume_parser import ResumeParser # Убедитесь, что путь правильный
-from typing import Dict
+from app.services.resume_parser import ResumeParser # Убедитесь, что путь к ResumeParser правильный
+from typing import Dict, Any # Any если ваш парсер возвращает Dict[str, Any]
 
-router = APIRouter()
+router = APIRouter() # Убедитесь, что роутер создается
 
-@router.post("/resumes/parse", summary="Parse a resume PDF file")
-async def parse_resume_file(file: UploadFile = File(..., description="Resume PDF file to parse")):
+@router.post("/parse", summary="Parse a resume PDF file") # Путь будет /resumes/parse из-за префикса в api.py
+async def parse_resume_file(file: UploadFile = File(..., description="Resume PDF file to parse")) -> Dict[str, Any]: # Укажите тип возвращаемых данных
     """
     Загружает PDF файл резюме и возвращает извлеченную информацию в формате JSON.
     """
@@ -14,16 +15,17 @@ async def parse_resume_file(file: UploadFile = File(..., description="Resume PDF
 
     try:
         pdf_bytes = await file.read()
-        parser = ResumeParser(pdf_bytes)
+        parser = ResumeParser(pdf_bytes) # Используется ваш ResumeParser (заглушка или реальный)
         parsed_data = parser.parse()
-        if "error" in parsed_data: # Если парсер вернул ошибку
+        if "error" in parsed_data:
              raise HTTPException(status_code=500, detail=parsed_data["error"])
         return parsed_data
-    except HTTPException as e: # Перехватываем свои же HTTPException, чтобы они прошли дальше
+    except HTTPException as e:
         raise e
     except Exception as e:
-        # Логирование ошибки здесь было бы полезно
-        print(f"Error during resume parsing: {e}") # Просто для примера, лучше использовать logging
+        print(f"Error during resume parsing endpoint: {e}") # Логирование для отладки
+        # import traceback
+        # traceback.print_exc() # Для детальной ошибки в консоли
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred during parsing: {str(e)}")
     finally:
         await file.close()
