@@ -17,7 +17,7 @@ class ApplicationStatus(str, enum.Enum):
 
 class Application(Base):
     candidate_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    vacancy_id = Column(Integer, ForeignKey("vacancies.id"), nullable=False)
+    vacancy_id = Column(Integer, ForeignKey("vacancies.id"), nullable=False) 
     resume_id = Column(Integer, ForeignKey("resumes.id"), nullable=False) # Какое именно резюме было подано
 
     status = Column(SQLAlchemyEnum(ApplicationStatus), nullable=False, default=ApplicationStatus.SUBMITTED)
