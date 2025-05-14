@@ -1,0 +1,180 @@
+/* src/pages/HomePage.css */
+.home-page {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  padding: 0 20px 20px 20px; /* Добавим отступы по бокам и снизу */
+}
+
+.home-header {
+  background-color: #004a7c; /* Темно-синий фон */
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin: -2rem -1rem 2rem -1rem; /* Убираем отступы контейнера App.css и добавляем свой */
+}
+
+.home-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.home-header .tagline {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+.home-header .user-greeting {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-actions {
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 1rem;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-secondary:hover {
+  background-color: #545b62;
+  transform: translateY(-2px);
+}
+
+.btn-cta {
+  background-color: #28a745; /* Зеленый для Call-to-Action */
+  color: white;
+  font-size: 1.1rem;
+  padding: 15px 30px;
+}
+.btn-cta:hover {
+  background-color: #1e7e34;
+  transform: translateY(-2px);
+}
+
+
+/* Общие стили для секций */
+.home-page section {
+  background-color: #ffffff;
+  padding: 30px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.home-page section h2 {
+  font-size: 1.8rem;
+  color: #004a7c; /* Основной цвет компании */
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.home-page section p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+/* Стили для списков */
+.services ul, .partners ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.services li, .partners li {
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: flex-start; /* Для выравнивания иконок */
+}
+.services li strong, .partners li strong {
+    color: #333;
+}
+
+/* Ценности компании */
+.company-values .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    text-align: center;
+}
+.company-values .value-item {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+.company-values .value-item span[role="img"] { /* Стили для эмодзи */
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 10px;
+}
+.company-values .value-item h3 {
+    font-size: 1.3rem;
+    color: #0056b3; /* Немного другой синий для акцента */
+    margin-bottom: 8px;
+}
+
+/* Футер с контактами */
+.home-footer {
+  text-align: center;
+  background-color: #343a40; /* Темный фон для футера */
+  color: #f8f9fa;
+  padding: 30px 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  margin: 2rem -1rem -1rem -1rem; /* Убираем отступы контейнера App.css и добавляем свой */
+}
+
+.home-footer h2 {
+  color: #ffffff;
+  border-bottom: 2px solid #495057;
+}
+
+.home-footer p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.home-footer a {
+  color: #17a2b8; /* Бирюзовый для ссылок в футере */
+  text-decoration: none;
+}
+
+.home-footer a:hover {
+  text-decoration: underline;
+}
+
+.nav-user-info {
+  color: #ccc; /* Светло-серый для информации, чтобы не так сильно выделялась как ссылка */
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  align-self: center; /* Выровнять по центру вертикально с другими элементами */
+}

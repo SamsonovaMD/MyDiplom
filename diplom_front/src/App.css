@@ -1,0 +1,93 @@
+/* src/App.css */
+.container {
+  max-width: 1200px; /* Максимальная ширина контента */
+  margin: 0 auto;    /* Центрирование */
+  padding: 2rem 1rem; /* Отступы по бокам и сверху/снизу */
+  min-height: calc(100vh - 120px); /* Чтобы футер (если будет) был внизу. 120px - примерная высота навбара и отступов */
+}
+
+/* Стили для форм */
+.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.form-container div {
+  margin-bottom: 1rem;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Важно для padding и border */
+}
+
+.form-container button[type="submit"] {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.form-container button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+.form-container button[type="submit"]:disabled {
+  background-color: #b0c4de; /* Светло-синий для disabled */
+}
+
+.error-message {
+  color: #d9534f; /* Красный */
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.success-message {
+  color: #3c763d; /* Зеленый */
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.status-message {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}

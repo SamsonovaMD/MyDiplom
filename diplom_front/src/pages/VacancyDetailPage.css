@@ -1,0 +1,112 @@
+/* src/pages/VacancyDetailPage.css */
+.vacancy-detail-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: #007bff;
+  text-decoration: none;
+}
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.vacancy-detail-container h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.vacancy-meta p {
+  margin: 0.3rem 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.vacancy-section {
+  margin-top: 2rem;
+}
+
+.vacancy-section h3 {
+  font-size: 1.3rem;
+  color: #444;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 0.4rem;
+}
+
+.vacancy-section p {
+  line-height: 1.7;
+  color: #333;
+  white-space: pre-wrap; /* Сохраняет переносы строк из описания */
+}
+
+.vacancy-section p strong {
+    color: #222;
+}
+
+.apply-section {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #e9e9e9;
+}
+
+.apply-section h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.apply-section input[type="file"] {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.apply-section button {
+  background-color: #28a745; /* Зеленый */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.apply-section button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.apply-section button:not(:disabled):hover {
+  background-color: #218838;
+}
+
+.apply-message {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.auth-prompt {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #fff3cd; /* Светло-желтый */
+    border: 1px solid #ffeeba;
+    border-radius: 4px;
+    color: #856404;
+}
+.auth-prompt a {
+    color: #0056b3;
+    font-weight: bold;
+}
