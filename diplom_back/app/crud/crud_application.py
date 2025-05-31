@@ -1,22 +1,46 @@
 # diplom_back/app/crud/crud_application.py
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import List, Optional, Union, Dict, Any
 
 from app.models.application import Application, ApplicationStatus
 from app.schemas.application import ApplicationCreate, ApplicationUpdate
 
 def get_application(db: Session, application_id: int) -> Optional[Application]:
-    return db.query(Application).filter(Application.id == application_id).first()
+    return (
+        db.query(Application)
+        .filter(Application.id == application_id)
+        .options(joinedload(Application.vacancy))  # <--- ЗАГРУЖАЕМ ДАННЫЕ ВАКАНСИИ
+        .first()
+    )
 
 def get_applications_for_vacancy(
     db: Session, vacancy_id: int, skip: int = 0, limit: int = 100
 ) -> List[Application]:
-    return db.query(Application).filter(Application.vacancy_id == vacancy_id).order_by(Application.created_at.desc()).offset(skip).limit(limit).all()
+    return (
+        db.query(Application)
+        .filter(Application.vacancy_id == vacancy_id)
+        .options(joinedload(Application.vacancy)) # <--- ЗАГРУЖАЕМ ДАННЫЕ ВАКАНСИИ
+        .order_by(Application.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
 def get_applications_by_candidate(
     db: Session, candidate_id: int, skip: int = 0, limit: int = 100
 ) -> List[Application]:
-    return db.query(Application).filter(Application.candidate_id == candidate_id).order_by(Application.created_at.desc()).offset(skip).limit(limit).all()
+    return (
+        db.query(Application)
+        .filter(Application.candidate_id == candidate_id)
+        .options(
+            joinedload(Application.vacancy),
+            joinedload(Application.resume) # <--- ЗАГРУЖАЕМ ДАННЫЕ РЕЗЮМЕ
+        )
+        .order_by(Application.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
 def create_application(
     db: Session, *, application_in: ApplicationCreate, candidate_id: int,

@@ -3,6 +3,8 @@ from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any
 from datetime import datetime
 from app.models.application import ApplicationStatus # Импортируем Enum
+from ..schemas.vacancy import VacancySchema 
+from ..schemas.resume import ResumeSchema
 
 class ApplicationBase(BaseModel):
     # candidate_id, vacancy_id, resume_id будут установлены в эндпоинте
@@ -34,6 +36,6 @@ class ApplicationInDBBase(ApplicationBase):
 class ApplicationSchema(ApplicationInDBBase):
     # Можно добавить детали кандидата, вакансии, резюме, если нужно
     # candidate: Optional[UserSchema] = None
-    # vacancy: Optional[VacancySchema] = None
-    # resume: Optional[ResumeSchema] = None
+    vacancy: Optional[VacancySchema] = None
+    resume: Optional[ResumeSchema] = None
     pass

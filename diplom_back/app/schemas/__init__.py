@@ -4,4 +4,5 @@ from .token import Token, TokenPayload
 from .vacancy import VacancyBase, VacancyCreate, VacancyUpdate, VacancySchema
 from .resume import ResumeBase, ResumeCreate, ResumeSchema
 from .application import ApplicationBase, ApplicationCreate, ApplicationUpdate, ApplicationSchema
+from .matching import MatchedCandidateSchema
 # Позже сюда добавятся схемы для Vacancy, Resume, Application

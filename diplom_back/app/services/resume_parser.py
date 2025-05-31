@@ -105,6 +105,57 @@ def _parse_resume_info(lines: List[str]) -> Dict[str, Any]:
             result["work_schedule"] = match.group(1).strip()
     return result
 
+def _parse_work_preferences(work_schedule_str: Optional[str], busyness_str: Optional[str]) -> Dict[str, Optional[str]]:
+    """
+    Извлекает предпочтительный формат работы и тип занятости из строк.
+    Значения приводятся к тем, что используются в Enum в matching_service (lowercase).
+    """
+    preferences = {
+        "preferred_work_format": None,
+        "preferred_employment_type": None,
+    }
+
+    # Сначала объединим обе строки, если они есть, для поиска
+    combined_text_lower = ""
+    if work_schedule_str:
+        combined_text_lower += work_schedule_str.lower() + " "
+    if busyness_str:
+        combined_text_lower += busyness_str.lower()
+
+    # Ключевые слова для формата работы (сопоставляем с вашими Enum значениями)
+    work_format_map = {
+        "удаленная работа": "remote",
+        "удаленно": "remote",
+        "дистанционно": "remote",
+        "гибрид": "hybrid",
+        "гибридный график": "hybrid",
+        "в офисе": "office",
+        "офис": "office",
+    }
+    # Ключевые слова для типа занятости
+    employment_type_map = {
+        "полный день": "full_time",       # Часто встречается в "График работы"
+        "полная занятость": "full_time", # Часто встречается в "Занятость"
+        "частичная занятость": "part_time",
+        "неполный день": "part_time",
+        "стажировка": "internship",
+        # "проектная работа": "project_work", # Если нужно
+        # "волонтерство": "volunteer",      # Если нужно
+    }
+
+    for keyword, value in work_format_map.items():
+        if keyword in combined_text_lower:
+            preferences["preferred_work_format"] = value
+            break 
+
+    for keyword, value in employment_type_map.items():
+        if keyword in combined_text_lower:
+            preferences["preferred_employment_type"] = value
+            break
+            
+    return preferences
+
+
 def _parse_resume_job_experience(lines: List[str]) -> Dict[str, Any]:
     years_, months_ = 0,0
     company_ = ""
@@ -239,6 +290,30 @@ def _parse_resume_skils(lines: List[str]) -> Dict[str, Any]:
     result["skils"] = [item.strip() for item in skils if item.strip()]
     return result
 
+def _parse_desired_salary(lines: List[str]) -> Dict[str, Any]:
+    salary_data = {"desired_salary": {"amount": None, "currency": None}}
+    
+    for i, line in enumerate(lines):
+        if "Желательное время в пути до работы:" in line:
+            match_amount = re.search(r'([\d\s]+\d)\s*$', line) 
+            if not match_amount: 
+                 match_amount = re.search(r'(\d+)\s*$', line)
+
+            if match_amount:
+                amount_str = match_amount.group(1).replace(" ", "")  # Remove spaces for clean integer conversion
+                
+                if i + 1 < len(lines):
+                    next_line_stripped = lines[i+1].strip()
+                    known_currencies = ["₽", "руб.", "руб", "рублей", "USD", "$", "EUR", "€"]
+                    if next_line_stripped in known_currencies:
+                        try:
+                            salary_data["desired_salary"]["amount"] = int(amount_str)
+                            salary_data["desired_salary"]["currency"] = next_line_stripped
+                            return salary_data
+                        except ValueError:
+                            pass 
+    return salary_data
+
 
 # --- Класс ResumeParser ---
 class ResumeParser:
@@ -289,18 +364,30 @@ class ResumeParser:
         if len(sections_from_pdf) < 5:
             return {"error": f"Could not identify all resume sections. Found {len(sections_from_pdf)}."}
 
+        parsed_info = _parse_resume_info(sections_from_pdf[0])
+
         result_dict = {
-            **_parse_resume_info(sections_from_pdf[0]),
+            **parsed_info,
             **_parse_resume_job_experience(sections_from_pdf[1]),
             **_parse_resume_education(sections_from_pdf[2]),
             **_parse_resume_course(sections_from_pdf[3]),
             **_parse_resume_skils(sections_from_pdf[4]),
         }
+
+        work_preferences = _parse_work_preferences(
+            work_schedule_str=parsed_info.get("work_schedule"), # Берем из уже распарсенной информации
+            busyness_str=parsed_info.get("busyness")         # Также берем "Занятость"
+        )
+        result_dict.update(work_preferences) 
+
+        desired_salary_info = _parse_desired_salary(self.prepared_text_lines)
+        result_dict.update(desired_salary_info)
         return result_dict
 
 # --- Блок для локального тестирования ---
 # if __name__ == "__main__":
-#     test_pdf_path = "C:\\Users\\user\\Downloads\\Самсонова Мария.pdf" # Пример из вашего кода
+#     test_pdf_path = "C:\\Users\\user\\Downloads\\Самсонова Мария.pdf"
+#     # Пример из вашего кода
 #     try:
 #         with open(test_pdf_path, "rb") as f:
 #             pdf_bytes = f.read()

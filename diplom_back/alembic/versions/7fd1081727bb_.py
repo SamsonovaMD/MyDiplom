@@ -1,8 +1,8 @@
-"""create_initial_tables
+"""empty message
 
-Revision ID: 1dbe681bff0f
+Revision ID: 7fd1081727bb
 Revises: 
-Create Date: 2025-05-11 17:58:50.334796
+Create Date: 2025-05-31 22:38:19.823281
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision: str = '1dbe681bff0f'
+revision: str = '7fd1081727bb'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -53,6 +53,10 @@ def upgrade() -> None:
     sa.Column('experience_required', sa.String(), nullable=True),
     sa.Column('primary_skills', postgresql.JSONB(astext_type=sa.Text()), nullable=True),
     sa.Column('nice_to_have_skills', postgresql.JSONB(astext_type=sa.Text()), nullable=True),
+    sa.Column('salary_from', sa.Integer(), nullable=True, comment='Зарплата от (в рублях)'),
+    sa.Column('salary_to', sa.Integer(), nullable=True, comment='Зарплата до (в рублях, опционально)'),
+    sa.Column('work_format', sa.Enum('remote', 'hybrid', 'office', name='work_format_enum_type', native_enum=False), nullable=True, comment='Формат работы'),
+    sa.Column('employment_type', sa.Enum('full_time', 'part_time', 'internship', name='employment_type_enum_type', native_enum=False), nullable=True, comment='Тип занятости'),
     sa.Column('employer_id', sa.Integer(), nullable=False),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), nullable=True),
@@ -66,7 +70,7 @@ def upgrade() -> None:
     sa.Column('candidate_id', sa.Integer(), nullable=False),
     sa.Column('vacancy_id', sa.Integer(), nullable=False),
     sa.Column('resume_id', sa.Integer(), nullable=False),
-    sa.Column('status', sa.Enum('SUBMITTED', 'VIEWED', 'UNDER_REVIEW', 'SHORTLISTED', 'REJECTED', 'INVITED_TO_INTERVIEW', 'HIRED', name='applicationstatus'), nullable=False),
+    sa.Column('status', sa.Enum('SUBMITTED', 'UNDER_REVIEW', 'REJECTED', name='applicationstatus'), nullable=False),
     sa.Column('match_score', sa.Float(), nullable=True),
     sa.Column('match_details', postgresql.JSONB(astext_type=sa.Text()), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
@@ -74,7 +78,7 @@ def upgrade() -> None:
     sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
     sa.ForeignKeyConstraint(['candidate_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['resume_id'], ['resumes.id'], ),
-    sa.ForeignKeyConstraint(['vacancy_id'], ['vacancies.id'], ),
+    sa.ForeignKeyConstraint(['vacancy_id'], ['vacancies.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_applications_id'), 'applications', ['id'], unique=False)

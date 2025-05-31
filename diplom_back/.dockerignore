@@ -1,0 +1,32 @@
+# Git
+.git
+.gitignore
+
+# Python кэш и виртуальные окружения
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+venv_back/ # Твоя папка виртуального окружения
+pip-log.txt
+pip-delete-this-directory.txt
+.eggs/
+*.egg-info/
+*.egg
+dist/
+build/
+
+# IDE / Редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Специфичные для ОС
+.DS_Store
+Thumbs.db
+
+# Логи и прочее
+*.log

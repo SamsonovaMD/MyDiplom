@@ -18,6 +18,9 @@ origins = [
     "http://localhost:5173", # Порт твоего Vite dev server
     "http://localhost:3000", # Если бы использовался Create React App
     "http://127.0.0.1:5173",
+    "http://185.112.83.189:8080",
+    "http://0.0.0.0:8080",
+    "*",
     # "https://your-frontend-domain.com", # Для продакшена
 ]
 
