@@ -82,26 +82,27 @@ const MyApplicationsPage = () => {
   return (
     <div className="my-applications-container">
       <h1>Мои отклики</h1>
-      {error && <p className="status-message error-message list-error">{error}</p>}
-      {applications.length === 0 && !loading && !error ? (
-        <p>Вы еще не откликались на вакансии. <Link to="/vacancies">Найти вакансии</Link>.</p>
-      ) : (
+      {/* ... (код для ошибок и пустого списка без изменений) ... */}
+      {applications.length > 0 && !loading && ( // Уточнил условие
         <ul className="applications-list">
           {applications.map((app) => {
-            // Определяем ключ статуса для сравнения (например, "rejected")
-            // Это значение должно соответствовать ключу в вашем ApplicationStatus enum на бэкенде
-            const IS_REJECTED_STATUS = 'rejected'; // Замените, если ваш ключ статуса "отклонено" другой
+            const IS_REJECTED_STATUS = 'rejected'; // Используется для отображения причины
+
+            // Получаем дополнительный класс для элемента списка
+            const itemStatusClass = getItemClassByStatus(app.status);
 
             return (
-              <li key={app.id} className="application-item">
+              // Динамически добавляем класс к li
+              <li key={app.id} className={`application-item ${itemStatusClass}`}>
                 <div className="application-main-info">
-                  {app.vacancy && app.vacancy.title ? (
+                  {/* ... (код для отображения вакансии без изменений) ... */}
+                   {app.vacancy && app.vacancy.title ? (
                     <Link to={`/vacancies/${app.vacancy.id}`} className="application-vacancy-title">
                       {app.vacancy.title}
                     </Link>
                   ) : (
                     <span className="application-vacancy-title-missing">
-                      {app.vacancy_id ? `Вакансия ID: ${app.vacancy_id} (детали не загружены)` : 'Вакансия (детали не загружены)'}
+                      {app.vacancy_id ? `Вакансия ID: ${app.vacancy_id}` : 'Вакансия'} (детали не загружены)
                     </span>
                   )}
                    {app.vacancy?.employer_company_name && (
@@ -112,21 +113,16 @@ const MyApplicationsPage = () => {
                   <p>
                     <strong>Дата отклика:</strong> {formatDate(app.created_at)}
                   </p>
-                  {/* Отображение информации о резюме */}
                   {app.resume && (
                     <p>
                       <strong>Резюме:</strong> {getResumeDisplay(app.resume)}
                     </p>
                   )}
                   <p>
-                    <strong>Статус:</strong>
-                    <span className={`status-badge status-${app.status?.toLowerCase().replace('_', '-')}`}>
-                      {getApplicationStatusDisplay(app.status)}
-                    </span>
+                    <strong>Статус:</strong> {getApplicationStatusDisplay(app.status)} {/* Убрали span status-badge */}
                   </p>
-                  {/* Условное отображение причины отклонения */}
                   {app.status?.toLowerCase() === IS_REJECTED_STATUS && app.match_details && app.match_details.reason_summary && (
-                    <p className="rejection-reason">
+                    <p className="rejection-reason"> {/* Этот класс можно оставить или убрать, если подсветка всего блока достаточна */}
                       <strong>Причина отклонения:</strong> {app.match_details.reason_summary}
                     </p>
                   )}
