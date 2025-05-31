@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import './HomePage.css'; // Создадим этот файл для стилей
+import headerBackgroundImage from '../assets/HomeImage.jpg'; 
 
 // Можно вынести иконки или использовать SVG/FontAwesome если подключены
 const CheckIcon = () => (
@@ -26,7 +27,8 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <header className="home-header">
+      {/* Если используете inline-стили для фона хедера: <header className="home-header" style={headerStyle}> */}
+      <header className="home-header"> {/* CSS будет применен благодаря этому классу */}
         <h1>NexITera – Инновационные IT-решения для цифрового будущего</h1>
         <p className="tagline">Ваш проводник в мире цифровых технологий!</p>
         {currentUser ? (
@@ -39,8 +41,8 @@ const HomePage = () => {
             <Link to="/register" className="btn btn-secondary">Зарегистрироваться</Link>
           </div>
         )}
-         <Link to="/vacancies" className="btn btn-cta">
-            Посмотреть актуальные вакансии
+        <Link to="/vacancies" className="btn btn-cta">
+          Посмотреть актуальные вакансии
         </Link>
       </header>
 

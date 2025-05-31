@@ -1,81 +1,145 @@
 /* src/pages/HomePage.css */
+
+body {
+  font-family: 'Arial', sans-serif; /* Применяем ко всему документу */
+  margin: 0;
+  background-color: #f0f4f8; /* Общий фон страницы */
+}
+
 .home-page {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f8;
   color: #333;
-  line-height: 1.6;
-  padding: 0 20px 20px 20px; /* Добавим отступы по бокам и снизу */
 }
 
 .home-header {
-  background-color: #004a7c; /* Темно-синий фон */
-  color: white;
-  padding: 40px 20px;
+  background-image: url('../assets/HomeImage.jpg'); /* Путь через CSS */
+  /* Если импортировали, то в JSX можно использовать style, но лучше через CSS для header */
+  background-size: cover; /* Масштабировать изображение, чтобы оно покрывало всю область */
+  background-position: center; /* Центрировать изображение */
+  background-repeat: no-repeat; /* Не повторять изображение */
+  padding: 60px 20px; /* Внутренние отступы для контента хедера */
   text-align: center;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  margin: -2rem -1rem 2rem -1rem; /* Убираем отступы контейнера App.css и добавляем свой */
+  color: #ffffff; /* Цвет текста на фоне изображения (белый) */
+  position: relative; /* Для возможного наложения оверлея */
+}
+
+.home-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.45); /* Немного увеличил затемнение для лучшей читаемости */
+  z-index: 1;
+}
+
+.home-header > * {
+  position: relative;
+  z-index: 2;
 }
 
 .home-header h1 {
-  font-size: 2.8rem;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+  font-size: 2.8em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .home-header .tagline {
-  font-size: 1.3rem;
-  margin-bottom: 2rem;
-  font-weight: 300;
+  font-size: 1.4em;
+  margin-bottom: 1.5em;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
 }
 
 .home-header .user-greeting {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.1em;
+  margin-bottom: 1.5em;
 }
 
 .auth-actions {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5em;
 }
 
 .btn {
   padding: 12px 25px;
   text-decoration: none;
   border-radius: 5px;
-  font-weight: 500;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1em;
+  font-weight: 500; /* Немного жирнее шрифт */
+  margin: 5px 10px; /* Добавил вертикальный отступ для случая переноса строк */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   display: inline-block;
-  margin: 0 10px;
-  font-size: 1rem;
   border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #00796B; /* Основной акцентный бирюзовый */
   color: white;
 }
+
 .btn-primary:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
+  background-color: #00695C; /* Чуть темнее при наведении */
 }
 
 .btn-secondary {
-  background-color: #6c757d;
+  background-color: #607D8B; /* Сине-серый, нейтральный */
   color: white;
 }
+
 .btn-secondary:hover {
-  background-color: #545b62;
-  transform: translateY(-2px);
+  background-color: #546E7A; /* Чуть темнее при наведении */
 }
 
 .btn-cta {
-  background-color: #28a745; /* Зеленый для Call-to-Action */
+  background-color: #00897B; /* Можно сделать такой же как primary или чуть ярче */
   color: white;
-  font-size: 1.1rem;
+  font-size: 1.1em;
   padding: 15px 30px;
+  margin-top: 20px;
 }
+
 .btn-cta:hover {
-  background-color: #1e7e34;
-  transform: translateY(-2px);
+  background-color: #00695C;
+}
+
+.about-company,
+.services,
+.partners,
+.company-values,
+.home-footer {
+  padding: 40px 20px;
+  max-width: 960px;
+  margin: 30px auto; /* Центрирование и отступы между секциями */
+  background-color: #ffffff; /* Белый фон для контентных блоков */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Легкая тень для блоков */
+}
+
+.services ul,
+.partners ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.services li,
+.partners li {
+  padding: 8px 0;
+  display: flex; /* Для выравнивания иконки и текста */
+  align-items: center; /* Вертикальное выравнивание по центру */
+  font-size: 1.1em;
+}
+
+.services li strong,
+.partners li strong {
+  margin-right: 5px;
 }
 
 
@@ -143,38 +207,66 @@
 }
 
 /* Футер с контактами */
+
 .home-footer {
+  background-color: #004D40; /* Такой же темно-бирюзовый, как и меню */
+  color: #E0F2F1; /* Светлый текст */
+  padding: 40px 20px;
   text-align: center;
-  background-color: #343a40; /* Темный фон для футера */
-  color: #f8f9fa;
-  padding: 30px 20px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  margin: 2rem -1rem -1rem -1rem; /* Убираем отступы контейнера App.css и добавляем свой */
+  margin-top: 40px;
+  max-width: none;
+  border-radius: 0;
 }
 
-.home-footer h2 {
-  color: #ffffff;
-  border-bottom: 2px solid #495057;
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #0056b3; /* Цвет заголовков секций */
+}
+
+.company-values .values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+
+.company-values .value-item {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.company-values .value-item h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.company-values .value-item p {
+  font-size: 0.95em;
+  color: #555;
+}
+
+.home-footer h2 { /* Заголовок "Контакты" */
+  color: #FFFFFF;
+  margin-bottom: 25px;
 }
 
 .home-footer p {
-  margin-bottom: 10px;
-  font-size: 1rem;
+  margin: 10px 0;
+  font-size: 1em;
 }
 
 .home-footer a {
-  color: #17a2b8; /* Бирюзовый для ссылок в футере */
+  color: #80CBC4; /* Светлый бирюзовый для ссылок, чтобы выделялись */
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .home-footer a:hover {
+  color: #FFFFFF; /* Белый при наведении */
   text-decoration: underline;
 }
 
-.nav-user-info {
-  color: #ccc; /* Светло-серый для информации, чтобы не так сильно выделялась как ссылка */
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  align-self: center; /* Выровнять по центру вертикально с другими элементами */
-}

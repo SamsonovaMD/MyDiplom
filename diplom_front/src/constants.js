@@ -8,11 +8,7 @@ export const USER_ROLES = {
 
 export const APPLICATION_STATUS_DISPLAY = {
   submitted: 'Подана',
-  viewed: 'Просмотрена',
-  under_review: 'На рассмотрении',
-  shortlisted: 'В шорт-листе',
   rejected: 'Отклонена',
-  invited_to_interview: 'Приглашен(а) на собеседование',
-  hired: 'Принят(а) на работу',
+  under_review: 'Приглашен(а) на собеседование',
   // Добавь другие статусы из твоего enum ApplicationStatus, если они есть
 };

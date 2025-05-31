@@ -36,11 +36,6 @@ const Navbar = () => {
             {currentUser.role === USER_ROLES.CANDIDATE && (
               <>
                 <li className="nav-item">
-                  <Link to="/my-resumes" className="nav-link">
-                    Мои резюме
-                  </Link>
-                </li>
-                <li className="nav-item">
                   <Link to="/my-applications" className="nav-link">
                     Мои отклики
                   </Link>

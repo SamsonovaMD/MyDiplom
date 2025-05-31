@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getVacancies } from '../services/api';
-import './VacanciesListPage.css'; // Создадим файл стилей
+import { getWorkFormatDisplay, getEmploymentTypeDisplay } from '../utils/translations'; // Import helpers
+import './VacanciesListPage.css';
 
 const VacanciesListPage = () => {
   const [vacancies, setVacancies] = useState([]);
@@ -13,8 +14,8 @@ const VacanciesListPage = () => {
     const fetchVacancies = async () => {
       try {
         setLoading(true);
-        const response = await getVacancies();
-        setVacancies(response.data || []); // Убедимся, что это массив
+        const response = await getVacancies(); // Assuming getVacancies is updated to fetch new fields
+        setVacancies(response.data || []);
         setError('');
       } catch (err) {
         setError(err.response?.data?.detail || 'Не удалось загрузить вакансии.');
@@ -23,9 +24,20 @@ const VacanciesListPage = () => {
         setLoading(false);
       }
     };
-
     fetchVacancies();
   }, []);
+
+  const formatSalary = (from, to, currency) => {
+    if (!from && !to) return 'Не указана';
+    let salaryString = '';
+    if (from) {
+      salaryString += `от ${from.toLocaleString('ru-RU')}`;
+    }
+    if (to) {
+      salaryString += ` до ${to.toLocaleString('ru-RU')}`;
+    }
+    return `${salaryString} ${currency || 'RUB'}`; // Default to RUB if currency not present
+  };
 
   if (loading) return <div className="status-message">Загрузка вакансий...</div>;
   if (error) return <div className="status-message error-message">{error}</div>;
@@ -42,10 +54,22 @@ const VacanciesListPage = () => {
               <Link to={`/vacancies/${vacancy.id}`} className="vacancy-link">
                 <h3>{vacancy.title}</h3>
               </Link>
-              {/* Можно добавить краткое описание или компанию, если есть в vacancy.data */}
-              <p className="vacancy-company">{vacancy.company_name || 'Компания не указана'}</p>
+              {/* Отображаем новые поля */}
+              <p className="vacancy-salary">
+                <strong>Зарплата:</strong> {formatSalary(vacancy.salary_from, vacancy.salary_to, vacancy.salary_currency)}
+              </p>
+              {vacancy.work_format && (
+                <p className="vacancy-meta-item">
+                  <strong>Формат:</strong> {getWorkFormatDisplay(vacancy.work_format)}
+                </p>
+              )}
+              {vacancy.employment_type && (
+                <p className="vacancy-meta-item">
+                  <strong>Тип занятости:</strong> {getEmploymentTypeDisplay(vacancy.employment_type)}
+                </p>
+              )}
               <p className="vacancy-short-description">
-                {vacancy.description?.substring(0, 150) || 'Описание отсутствует'}...
+                {vacancy.description?.substring(0, 100) || 'Описание отсутствует'}...
               </p>
             </li>
           ))}

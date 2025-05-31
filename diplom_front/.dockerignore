@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# package-lock.json # Оставляем закомментированным, так как npm ci его использует
+
+# Директория сборки (Vite по умолчанию 'dist')
+dist/
+
+# IDE / Редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Файлы окружения (Vite использует .env файлы, но мы будем передавать через --build-arg для Docker)
+.env
+.env.*
+!*.env.example
+
+# Специфичные для ОС
+.DS_Store
+Thumbs.db

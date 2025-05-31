@@ -1,6 +1,6 @@
 // src/context/UserContext.jsx
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
-import apiClient, { getCurrentUser as fetchCurrentUser } from '../services/api'; // Импорт функции API
+import apiClient, { getCurrentUser as fetchCurrentUser } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 const UserContext = createContext(null);
@@ -8,44 +8,54 @@ const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('authToken'));
-  const [loading, setLoading] = useState(true); // Для начальной загрузки пользователя
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  const setupApiClientAuthHeader = (currentToken) => {
+    if (currentToken) {
+      apiClient.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
+    } else {
+      delete apiClient.defaults.headers.common['Authorization'];
+    }
+  };
 
   const fetchUser = useCallback(async () => {
     const currentToken = localStorage.getItem('authToken');
     if (currentToken) {
       setToken(currentToken); // Убедимся, что токен в стейте
+      setupApiClientAuthHeader(currentToken); // <--- Устанавливаем заголовок здесь
       try {
-        const response = await fetchCurrentUser();
+        const response = await fetchCurrentUser(); // Которая теперь будет использовать заголовок
         setCurrentUser(response.data);
       } catch (error) {
         console.error("Failed to fetch current user:", error);
         localStorage.removeItem('authToken');
         setToken(null);
         setCurrentUser(null);
+        setupApiClientAuthHeader(null); // <--- Убираем заголовок при ошибке
         // Опционально: navigate('/login'); если токен невалиден
       }
     }
     setLoading(false);
-  }, []);
-
+  }, []); // navigate не нужен в зависимостях, если используется только при ошибке
 
   useEffect(() => {
     fetchUser();
-  }, [fetchUser]); // Зависимость fetchUser, т.к. она создается через useCallback
+  }, [fetchUser]);
 
   const loginContext = (userData, newToken) => {
     localStorage.setItem('authToken', newToken);
     setToken(newToken);
-    setCurrentUser(userData); // userData должен приходить из /users/me после логина
+    setCurrentUser(userData);
+    setupApiClientAuthHeader(newToken); // <--- Устанавливаем заголовок при логине
   };
 
   const logoutContext = () => {
     localStorage.removeItem('authToken');
     setToken(null);
     setCurrentUser(null);
-    delete apiClient.defaults.headers.common['Authorization']; // Удаляем заголовок из axios
-    navigate('/login'); // Перенаправляем на страницу логина
+    setupApiClientAuthHeader(null); // <--- Используем общую функцию для удаления заголовка
+    navigate('/login');
   };
 
   return (

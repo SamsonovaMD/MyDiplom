@@ -1,0 +1,133 @@
+/* src/pages/MyApplicationsPage.css */
+.my-applications-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9; /* Светлый фон для контейнера */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Небольшая тень */
+}
+
+.my-applications-container h1 {
+  text-align: center;
+  color: #333; /* Темный цвет для заголовка */
+  margin-bottom: 30px;
+}
+
+.applications-list {
+  list-style-type: none; /* Убираем маркеры списка */
+  padding: 0;
+}
+
+.application-item {
+  background-color: #fff; /* Белый фон для каждого элемента */
+  border: 1px solid #e0e0e0; /* Светлая рамка */
+  border-radius: 8px; /* Скругленные углы */
+  padding: 15px 20px;
+  margin-bottom: 15px; /* Отступ между элементами */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Легкая тень */
+  transition: background-color 0.3s ease, border-color 0.3s ease, border-left-color 0.3s ease; /* Плавные переходы для подсветки */
+  border-left: 5px solid transparent; /* Начальная прозрачная левая граница для выравнивания */
+}
+
+.application-item:hover {
+  border-color: #007bff; /* Синяя рамка при наведении (если нет спец. статуса) */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Стиль для отклоненных откликов */
+.application-item-rejected {
+  background-color: rgba(220, 53, 69, 0.05); /* Очень легкий прозрачно-красноватый фон */
+  border-left-color: #dc3545; /* Красная полоска слева */
+  border-color: #f5c6cb; /* Более светлая красная рамка */
+}
+.application-item-rejected:hover {
+  border-color: #dc3545; /* Темно-красная рамка при наведении */
+}
+
+
+/* Стиль для приглашенных на собеседование */
+.application-item-invited {
+  background-color: rgba(23, 162, 184, 0.05); /* Очень легкий прозрачно-бирюзовый фон */
+  border-left-color: #17a2b8; /* Бирюзовая полоска слева */
+  border-color: #b8daff; /* Более светлая бирюзовая рамка */
+}
+.application-item-invited:hover {
+  border-color: #17a2b8; /* Темно-бирюзовая рамка при наведении */
+}
+
+
+.application-main-info .application-vacancy-title {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: #0056b3; /* Темно-синий для заголовка вакансии */
+  text-decoration: none;
+}
+
+.application-main-info .application-vacancy-title:hover {
+  text-decoration: underline;
+}
+
+.application-main-info .application-vacancy-title-missing {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: #555; /* Серый для отсутствующего заголовка */
+}
+
+.application-company { /* Добавил стиль для компании, если он нужен */
+  font-size: 0.9em;
+  color: #6c757d; /* Серый цвет для названия компании */
+  margin-top: 3px;
+}
+
+.application-details p {
+  margin: 8px 0; /* Увеличил немного вертикальный отступ для читаемости */
+  font-size: 0.9em;
+  color: #444; /* Темно-серый для деталей */
+}
+
+.application-details strong {
+  color: #333; /* Черный для выделенного текста */
+  margin-right: 5px;
+}
+
+/* Убрали стили для .status-badge, так как статус теперь обычный текст */
+/* .status-badge { ... } */
+/* .status-pending, .status-submitted { ... } */
+/* .status-viewed { ... } */
+/* .status-interview_scheduled { ... } */
+/* .status-accepted { ... } */
+/* .status-rejected { ... } */
+
+.rejection-reason { /* Стили для причины отклонения, если она отображается */
+  margin-top: 8px;
+  padding: 8px 10px;
+  font-size: 0.85em;
+  color: #721c24; /* Темно-красный текст, если фон блока уже красный, можно сделать его просто темнее */
+  /* Если фон блока application-item-rejected уже достаточно явно указывает на отказ,
+     можно сделать этот текст менее выделенным или убрать специфичные стили фона/рамки отсюда */
+  /* background-color: rgba(220, 53, 69, 0.15); */ /* Можно сделать чуть насыщеннее, чем фон блока */
+  /* border-left: 3px solid #721c24; */
+  border-radius: 4px;
+}
+.application-item-rejected .rejection-reason strong { /* Чтобы "Причина отклонения:" была в цвет */
+    color: #721c24;
+}
+
+
+.status-message {
+  text-align: center;
+  font-size: 1.1em;
+  padding: 20px;
+  color: #555; /* Серый для информационных сообщений */
+}
+
+.error-message, .list-error {
+  color: #721c24; /* Темно-красный текст для ошибок */
+  background-color: #f8d7da; /* Светло-красный фон для ошибок */
+  border: 1px solid #f5c6cb; /* Красная рамка для ошибок */
+  border-radius: .25rem;
+  padding: .75rem 1.25rem;
+  margin-bottom: 15px; /* Отступ для сообщения об ошибке списка */
+}
+/* Убрал дублирующийся list-error, так как он теперь объединен с error-message */

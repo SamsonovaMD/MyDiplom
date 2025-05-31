@@ -1,0 +1,138 @@
+/* src/pages/MyPostedVacanciesPage.css */
+.my-posted-vacancies-page {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.my-posted-vacancies-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.loading-message,
+.error-message {
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.loading-message {
+  color: #555;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.vacancies-list {
+  display: grid;
+  gap: 25px; /* Немного увеличим отступ между карточками */
+}
+
+.vacancy-card-employer {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07); /* Немного усилим тень */
+  display: flex; /* Для лучшего контроля над внутренними блоками */
+  flex-direction: column; /* Чтобы контент шел сверху вниз */
+}
+
+.vacancy-card-employer h2 {
+  margin-top: 0;
+  margin-bottom: 10px; /* Уменьшим отступ снизу */
+  color: #057865; /* Цвет из вашего Navbar */
+  font-size: 1.4rem; /* Немного увеличим заголовок */
+}
+
+.vacancy-card-employer p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+  color: #555; /* Сделаем текст параграфов чуть светлее */
+}
+
+.vacancy-card-employer strong {
+  color: #333; /* Выделим жирный текст */
+}
+
+
+/* --- Стилизация блока с кнопками --- */
+.vacancy-buttons-container {
+  margin-top: 15px; /* Отступ сверху для всего блока кнопок */
+  display: flex;
+  flex-direction: column; /* Кнопки будут одна под другой */
+  gap: 10px; /* Отступ между кнопками в колонке */
+}
+
+/* Общий стиль для всех кнопок в карточке */
+.vacancy-card-button {
+  background-color: #20c997; /* Яркий бирюзовый */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95rem; /* Немного увеличим шрифт кнопок */
+  text-align: center;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Легкая тень для кнопок */
+}
+
+.vacancy-card-button:hover:not(:disabled) {
+  background-color: #1baa80; /* Более темный бирюзовый при наведении */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+.vacancy-card-button:disabled {
+  background-color: #a0e0cb; /* Более светлый, приглушенный бирюзовый для disabled */
+  color: #f0f0f0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Если нужны специфичные стили для группы кнопок Редактировать/Удалить */
+.vacancy-actions-row {
+  display: flex;
+  gap: 10px; /* Отступ между кнопками Редактировать и Удалить */
+}
+
+.vacancy-actions-row .vacancy-card-button {
+  flex-grow: 1; /* Чтобы кнопки Редактировать и Удалить занимали равное место, если нужно */
+}
+/* --- Конец стилизации блока с кнопками --- */
+
+
+.matched-candidates-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.matched-candidates-section h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.candidates-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.candidate-item {
+  background-color: #f9f9f9;
+  border: 1px solid #e9e9e9;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.candidate-item h4 {
+  margin-top: 0;
+  color: #057865;
+}

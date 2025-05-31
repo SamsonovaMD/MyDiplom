@@ -62,3 +62,15 @@
   color: #444;
   line-height: 1.6;
 }
+
+.vacancy-salary {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.vacancy-meta-item {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
